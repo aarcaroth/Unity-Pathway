@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5.0f;
+    // private variables
+    private float speed = 15.0f;
+    private float turnSpeed = 35.0f;
+    private float horizontalInput;
+    private float verticalInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,8 +19,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //  We'll move the vehicle forward
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
-        
+
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
+        //  moves vehicle forward based on vertical input
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
+        // rotates vehicle based on horizontal input
+        transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
+
     }
 }
